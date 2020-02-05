@@ -1,8 +1,10 @@
 import json
 from botocore.vendored import requests
+from os import environ
 
 def lambda_handler(event, context):
-    api_url = "https://api.sl.se/api2/realtimedeparturesV4.json?key=[SECRETKEY]&siteid=[SITEID]&timewindow=31&Bus=false&Metro=true&Train=false&Ship=false&Tram=false"
+    api_url = "https://api.sl.se/api2/realtimedeparturesV4.json?key=" + environ['apikey'] + "&siteid=" + environ['siteid'] + "&timewindow=31&Bus=false&Metro=true&Train=false&Ship=false&Tram=false"
+  
     response = requests.get(api_url)
     json_data = json.loads(response.text)
     deviation = "."
